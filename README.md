@@ -1,3 +1,5 @@
+Restaurant
+--
 +  show category - Вывести все категории блюд
 +  show dishes - Вывести все блюда одной категории
        Ждать уточнение от пользователя: "Select a category"
@@ -22,5 +24,3 @@
 +   delete food - Удалить блюдо
                 Уточнение1: "Select a category of dishes"
                 Уточнение2: "Select name of dishes"
-
-
