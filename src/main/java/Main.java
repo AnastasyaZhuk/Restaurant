@@ -1,4 +1,5 @@
 import org.xml.sax.SAXException;
+import view.View;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;

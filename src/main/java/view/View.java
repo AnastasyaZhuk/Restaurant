@@ -1,3 +1,7 @@
+package view;
+
+import controller.Controller;
+import model.Model;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -8,8 +12,8 @@ import java.util.logging.Logger;
 public class View {
     private static Logger log = Logger.getLogger(View.class.getName());
 
-    Controller controller;
-    Model model;
+   private Controller controller;
+   private Model model;
 
     /**
      * Display System

@@ -1,7 +1,11 @@
+package model;
+
+import DAO.DatabaseOperation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import view.View;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -15,9 +19,9 @@ import java.util.List;
 
 
 public class Model implements DatabaseOperation {
-    View view;
-    Food food;
-    Category category;
+    private View view;
+    private Food food;
+    private Category category;
 
     /**
      * Return name of category

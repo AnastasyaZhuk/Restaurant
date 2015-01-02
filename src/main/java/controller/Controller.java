@@ -1,5 +1,11 @@
+package controller;
+
+import model.Category;
+import model.Food;
+import model.Model;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
+import view.View;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -16,10 +22,10 @@ import java.util.logging.Logger;
 public class Controller {
     private static Logger log = Logger.getLogger(Controller.class.getName());
 
-    Model model;
-    View view;
+    private Model model;
+    private View view;
 
-    Controller() {
+    public Controller() {
     }
 
     Controller(Model model, View view) {
