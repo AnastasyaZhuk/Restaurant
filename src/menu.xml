@@ -3,7 +3,7 @@
     <nameCategory name="Drinks">
         <drinks>
             <name>Milkshake</name>
-            <price>166565</price>
+            <price>166</price>
         </drinks>
     </nameCategory>
     <nameCategory name="Snacks">
@@ -13,6 +13,6 @@
         </snacks>
     </nameCategory>
     <nameCategory name="Salads"/>
+    
     <nameCategory name="Desserts"/>
-
 </restaurant>

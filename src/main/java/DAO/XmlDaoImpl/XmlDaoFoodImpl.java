@@ -8,6 +8,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import view.View;
+
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -20,15 +22,14 @@ import java.util.List;
 
 public class XmlDaoFoodImpl implements Dao<Food> {
 
-    String fileName = "src/menu.xml";
 
     @Override
     public void create(Food food) throws ParserConfigurationException, IOException, SAXException, TransformerException {
-        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new File(fileName));
+        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new File( "src/menu.xml"));
         NodeList nodeList = document.getElementsByTagName("nameCategory");
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node namedItem = nodeList.item(i).getAttributes().getNamedItem("name");
-            if (((namedItem.getNodeValue()).equals(XmlDaoCategoryImpl.firstUpperCase(food.getCategory().getName())))) {
+            if (((namedItem.getNodeValue()).equalsIgnoreCase((food.getCategory().getName())))) {
                 Node elementsByTagName = document.getElementsByTagName("nameCategory").item(i);
                 Element tagOfNameCategory = document.createElement(food.getCategory().getName());
                 elementsByTagName.appendChild(tagOfNameCategory);
@@ -42,7 +43,7 @@ public class XmlDaoFoodImpl implements Dao<Food> {
                 tagOfNameCategory.appendChild(priceOfFood);
             }
         }
-      XmlDaoCategoryImpl.reformatXmlFile(document,fileName);
+      XmlDaoCategoryImpl.reformatXmlFile(document, "src/menu.xml");
     }
 
     @Override
@@ -52,18 +53,18 @@ public class XmlDaoFoodImpl implements Dao<Food> {
         for (int i = 0; i < nodeList.getLength(); i++) {
             NodeList nodeList2 = document.getElementsByTagName("name");
             for (int j = 0; j < nodeList2.getLength(); j++) {
-                if (nodeList2.item(j).getTextContent().equals(XmlDaoCategoryImpl.firstUpperCase(food.getName()))) {
+                if (nodeList2.item(j).getTextContent().equalsIgnoreCase((food.getName()))) {
                     Element element = (Element) nodeList.item(i);
                     element.getParentNode().removeChild(element);
                 }
             }
         }
-        XmlDaoCategoryImpl.reformatXmlFile(document,fileName);
+        XmlDaoCategoryImpl.reformatXmlFile(document, "src/menu.xml");
     }
 
     @Override
     public void update(Food food) throws ParserConfigurationException, IOException, SAXException, TransformerException {
-        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new File(fileName));
+        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new File( "src/menu.xml"));
         NodeList list = document.getElementsByTagName("name");
         //Запрос во View: ввести новое название блюда
         String newNameForFood =  new BufferedReader(new InputStreamReader(System.in)).readLine();
@@ -74,7 +75,7 @@ public class XmlDaoFoodImpl implements Dao<Food> {
                 node.setTextContent(newFood.getName());
             }
         }
-        XmlDaoCategoryImpl.reformatXmlFile(document,fileName);
+        XmlDaoCategoryImpl.reformatXmlFile(document, "src/menu.xml");
     }
 
     @Override
@@ -82,6 +83,8 @@ public class XmlDaoFoodImpl implements Dao<Food> {
         Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new File("src/menu.xml"));
         Food food;
         //Запрос во View: ввести название категории
+        View view = new View();
+        view.nameCategory();
         String nameCategory =  new BufferedReader(new InputStreamReader(System.in)).readLine();
         Category category = new Category(nameCategory);
 
@@ -96,4 +99,6 @@ public class XmlDaoFoodImpl implements Dao<Food> {
         }
         return listOfFood;
     }
+
+
 }

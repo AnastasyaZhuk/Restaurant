@@ -26,5 +26,11 @@ public class Service {
         categoryService.createCategory();
     }
 
+    public void createFood() throws SAXException, ParserConfigurationException, IOException, TransformerException {
+        foodService.createFood();
+    }
 
+    public void getAllDishes() throws ParserConfigurationException, SAXException, IOException {
+        foodService.getAllDishes();
+    }
 }

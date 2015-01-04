@@ -2,6 +2,7 @@ package view;
 
 import controller.Controller;
 import model.Category;
+import model.Food;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -27,6 +28,14 @@ public class View {
         log.info("Введите название категории:");
     }
 
+    public void nameDishes() {
+        log.info("Введите название блюда");
+    }
+
+    public void priceOfDishes() {
+        log.info("Установите цену:");
+    }
+
     public void newNameForCategory() {
         log.info("Введите новое название категории:");
     }
@@ -34,6 +43,12 @@ public class View {
     public void showAllCategory(List<Category> list) {
         for (int i = 0; i < list.size(); i++) {
             log.info(list.get(i).getName());
+        }
+    }
+
+    public void showAllDishes(List<Food> list) {
+        for (int i = 0; i < list.size(); i++) {
+            log.info(list.get(i).getName() + " - " + list.get(i).getPrice() + "rub");
         }
     }
 

@@ -90,7 +90,7 @@ public class XmlDaoCategoryImpl implements Dao<Category> {
         return listOfCategory;
     }
 
-    public static void reformatXmlFile(Document document, String nameOfDocument) throws TransformerException {
+    static void reformatXmlFile(Document document, String nameOfDocument) throws TransformerException {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -101,7 +101,7 @@ public class XmlDaoCategoryImpl implements Dao<Category> {
     }
 
 
-    public static String firstUpperCase(String word) {
+    static String firstUpperCase(String word) {
         if (word == null || word.isEmpty()) return "";
         return word.substring(0, 1).toUpperCase() + word.substring(1);
     }

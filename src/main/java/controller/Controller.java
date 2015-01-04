@@ -34,12 +34,16 @@ public class Controller {
             log.info("Запрос не введен!");
         } else if (request.equalsIgnoreCase("show category")) {
             service.getAllCategories();
+        } else if (request.equalsIgnoreCase("show dishes")) {
+            service.getAllDishes();
         } else if (request.equalsIgnoreCase("new category")) {
             service.createCategory();
         } else if (request.equalsIgnoreCase("update category")) {
             service.updateCategory();
         } else if (request.equalsIgnoreCase("delete category")) {
             service.removeCategory();
+        } else if (request.equalsIgnoreCase("new food")) {
+            service.createFood();
         } else {
             view.showGhost();
         }
