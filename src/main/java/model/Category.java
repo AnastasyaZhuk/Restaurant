@@ -1,6 +1,6 @@
 package model;
 
-public class Category {
+public class Category implements Entity {
     private String name;
 
     public Category(String name){

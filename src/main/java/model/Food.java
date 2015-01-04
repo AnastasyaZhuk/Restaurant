@@ -1,6 +1,6 @@
 package model;
 
-public class Food {
+public class Food implements Entity {
     private String name;
     private Category category;
     private int price;

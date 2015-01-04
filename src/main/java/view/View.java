@@ -1,19 +1,18 @@
 package view;
 
 import controller.Controller;
-import model.Model;
+import model.Category;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class View {
     private static Logger log = Logger.getLogger(View.class.getName());
-
-   private Controller controller;
-   private Model model;
+    private Controller controller;
 
     /**
      * Display System
@@ -22,8 +21,24 @@ public class View {
         log.info("Добро пожаловать в ресторан!");
         log.info("Введите запрос:");
         requestForController();
+    }
 
+    public void nameCategory() throws IOException {
+        log.info("Введите название категории:");
+    }
 
+    public void newNameForCategory() {
+        log.info("Введите новое название категории:");
+    }
+
+    public void showAllCategory(List<Category> list) {
+        for (int i = 0; i < list.size(); i++) {
+            log.info(list.get(i).getName());
+        }
+    }
+
+    public void showGhost() {
+        log.info("Такой запрос не поддерживается! Проверьте правильность запроса! ");
     }
 
     /**
@@ -31,7 +46,6 @@ public class View {
      */
     public void requestForController() throws IOException, TransformerException, ParserConfigurationException, SAXException {
         controller = new Controller();
-        controller.requestForModel();
-
+        controller.requestForService();
     }
 }
