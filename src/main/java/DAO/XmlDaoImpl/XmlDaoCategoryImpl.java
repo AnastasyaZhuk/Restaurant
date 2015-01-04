@@ -7,6 +7,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import view.View;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -33,7 +34,7 @@ public class XmlDaoCategoryImpl implements Dao<Category> {
         Element newCategory = document.createElement("nameCategory");
         firstChild.appendChild(newCategory);
         newCategory.setAttribute("name", firstUpperCase(category.getName()));
-        reformatXmlFile(document,"src/menu.xml");
+        reformatXmlFile(document, "src/menu.xml");
     }
 
     @Override
@@ -49,22 +50,22 @@ public class XmlDaoCategoryImpl implements Dao<Category> {
                 parent.normalize();
             }
         }
-        reformatXmlFile(document,"src/menu.xml");
+        reformatXmlFile(document, "src/menu.xml");
     }
 
     @Override
     public void update(Category category) throws ParserConfigurationException, IOException, SAXException {
         Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new File("src/menu.xml"));
         NodeList nodeList = document.getElementsByTagName("nameCategory");
+        View view = new View();
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node namedItem = nodeList.item(i).getAttributes().getNamedItem("name");
             if (((namedItem.getNodeValue()).equalsIgnoreCase(category.getName()))) {
                 Node elementsByTagName = document.getElementsByTagName("nameCategory").item(i);
                 org.w3c.dom.NamedNodeMap map = elementsByTagName.getAttributes();
                 Node nodeAttr = map.getNamedItem("name");
-
-                //Запрос во View: новое имя категории
-               String newNameForCategory =  new BufferedReader(new InputStreamReader(System.in)).readLine();
+                //   view.newNameForCategory();
+                String newNameForCategory = new BufferedReader(new InputStreamReader(System.in)).readLine();
                 Category newCategory = new Category(newNameForCategory);
                 nodeAttr.setTextContent(firstUpperCase(newCategory.getName()));
                 NodeList list = document.getElementsByTagName(category.getName());
