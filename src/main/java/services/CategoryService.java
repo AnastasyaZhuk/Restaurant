@@ -1,4 +1,4 @@
-package model.services;
+package services;
 
 import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
