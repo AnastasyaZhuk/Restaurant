@@ -22,9 +22,10 @@ public class Service {
         categoryService.updateCategory();
     }
 
-    public void updateFood() throws ParserConfigurationException, SAXException, IOException {
+    public void updateFood() throws ParserConfigurationException, SAXException, IOException, TransformerException {
         foodService.updateFood();
     }
+
     public void removeCategory() throws SAXException, TransformerException, ParserConfigurationException, IOException {
         categoryService.removeCategory();
     }
@@ -40,6 +41,4 @@ public class Service {
     public void createFood() throws SAXException, ParserConfigurationException, IOException, TransformerException {
         foodService.createFood();
     }
-
-
 }

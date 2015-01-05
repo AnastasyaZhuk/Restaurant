@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XmlDaoFoodImpl implements Dao<Food, Category> {
+public class XmlDaoFoodImpl<D> implements Dao<Food, Category> {
 
 
     @Override

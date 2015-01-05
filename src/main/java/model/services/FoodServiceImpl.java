@@ -1,5 +1,8 @@
 package model.services;
 
+import dao.Dao;
+import dao.DaoFactory;
+import dao.xml.XmlDaoCategoryImpl;
 import dao.xml.XmlDaoFoodImpl;
 import model.Category;
 import model.Food;
@@ -11,19 +14,19 @@ import javax.xml.transform.TransformerException;
 import java.io.IOException;
 import java.util.List;
 
-public class FoodServiceImpl implements FoodService {
+public class FoodServiceImpl implements FoodService, DaoFactory<XmlDaoCategoryImpl<Dao>, XmlDaoFoodImpl<Dao>> {
 
     private View view = new View();
-    private XmlDaoFoodImpl xmlDaoFood = new XmlDaoFoodImpl();
 
     @Override
-    public void updateFood() throws IOException, ParserConfigurationException, SAXException {
+    public void updateFood() throws IOException, ParserConfigurationException, SAXException, TransformerException {
         String nameCategory = view.nameCategory();
         Category category = new Category(nameCategory);
         String nameFood = view.nameDishes();
         Food oldFood = new Food(nameFood, category.getName());
         String newNameOfFood = view.newNameForDish();
         Food newFood = new Food(newNameOfFood, category.getName());
+        getFoodDao().update(oldFood, newFood);
     }
 
     @Override
@@ -32,14 +35,14 @@ public class FoodServiceImpl implements FoodService {
         Category category = new Category(nameCategory);
         String nameFood = view.nameDishes();
         Food food = new Food(nameFood, category.getName());
-        xmlDaoFood.delete(food);
+        getFoodDao().delete(food);
     }
 
     @Override
     public void getAllDishes() throws IOException, SAXException, ParserConfigurationException {
-       String nameCategory = view.nameCategory();
+        String nameCategory = view.nameCategory();
         Category category = new Category(nameCategory);
-        List<Food> listOfFood = xmlDaoFood.getBy(category);
+        List<Food> listOfFood = getFoodDao().getBy(category);
         view.showAllDishes(listOfFood);
     }
 
@@ -50,6 +53,18 @@ public class FoodServiceImpl implements FoodService {
         String nameFood = view.nameDishes();
         int price = view.priceOfDishes();
         Food food = new Food(nameFood, category.getName(), price);
-        xmlDaoFood.create(food);
+        getFoodDao().create(food);
+    }
+
+    @Override
+    public XmlDaoCategoryImpl<Dao> getCategoryDao() {
+        XmlDaoCategoryImpl<Dao> xmlDaoCategory = new XmlDaoCategoryImpl<Dao>();
+        return xmlDaoCategory;
+    }
+
+    @Override
+    public XmlDaoFoodImpl<Dao> getFoodDao() {
+        XmlDaoFoodImpl<Dao> xmlDaoFood = new XmlDaoFoodImpl<Dao>();
+        return xmlDaoFood;
     }
 }

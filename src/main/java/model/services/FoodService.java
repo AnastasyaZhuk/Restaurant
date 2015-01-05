@@ -6,10 +6,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
 
-public interface FoodService
-{
-
-    public void updateFood() throws IOException, ParserConfigurationException, SAXException;
+public interface FoodService {
+    public void updateFood() throws IOException, ParserConfigurationException, SAXException, TransformerException;
 
     public void removeFood() throws IOException, TransformerException, SAXException, ParserConfigurationException;
 
