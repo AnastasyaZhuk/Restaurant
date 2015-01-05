@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <restaurant>
-    <nameCategory name="Drinks">
-        <drinks>
-            <name>Milkshake</name>
-            <price>166</price>
-        </drinks>
-    </nameCategory>
+    
     <nameCategory name="Snacks">
         <snacks>
             <name>Herring with potatoes</name>
             <price>140</price>
         </snacks>
-    </nameCategory>
+    <snacks>
+      <name>Potatoes</name>
+      <price>190</price>
+    </snacks>
+  </nameCategory>
     <nameCategory name="Salads"/>
-    
     <nameCategory name="Desserts"/>
+<nameCategory name="Drinks"/>
 </restaurant>

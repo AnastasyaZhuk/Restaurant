@@ -1,4 +1,4 @@
-package model;
+package model.services;
 
 import org.xml.sax.SAXException;
 
@@ -7,19 +7,30 @@ import javax.xml.transform.TransformerException;
 import java.io.IOException;
 
 public class Service {
-    private CategoryService categoryService = new CategoryService();
-    private FoodService foodService = new FoodService();
+    private CategoryServiceImpl categoryService = new CategoryServiceImpl();
+    private FoodServiceImpl foodService = new FoodServiceImpl();
 
     public void getAllCategories() throws ParserConfigurationException, SAXException, IOException {
         categoryService.getAllCategories();
     }
 
-    public void updateCategory() throws ParserConfigurationException, SAXException, IOException {
+    public void getAllDishes() throws ParserConfigurationException, SAXException, IOException {
+        foodService.getAllDishes();
+    }
+
+    public void updateCategory() throws ParserConfigurationException, SAXException, IOException, TransformerException {
         categoryService.updateCategory();
     }
 
+    public void updateFood() throws ParserConfigurationException, SAXException, IOException {
+        foodService.updateFood();
+    }
     public void removeCategory() throws SAXException, TransformerException, ParserConfigurationException, IOException {
         categoryService.removeCategory();
+    }
+
+    public void deleteDishes() throws SAXException, TransformerException, ParserConfigurationException, IOException {
+        foodService.removeFood();
     }
 
     public void createCategory() throws SAXException, TransformerException, ParserConfigurationException, IOException {
@@ -30,7 +41,5 @@ public class Service {
         foodService.createFood();
     }
 
-    public void getAllDishes() throws ParserConfigurationException, SAXException, IOException {
-        foodService.getAllDishes();
-    }
+
 }

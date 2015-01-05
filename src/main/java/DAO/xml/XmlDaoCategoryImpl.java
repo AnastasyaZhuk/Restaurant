@@ -1,13 +1,13 @@
-package DAO.XmlDaoImpl;
+package dao.xml;
 
-import DAO.Dao;
+import dao.Dao;
 import model.Category;
+import model.Food;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import view.View;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -17,14 +17,12 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XmlDaoCategoryImpl implements Dao<Category> {
+public class XmlDaoCategoryImpl implements Dao<Category,Food> {
 
 
     @Override
@@ -54,26 +52,23 @@ public class XmlDaoCategoryImpl implements Dao<Category> {
     }
 
     @Override
-    public void update(Category category) throws ParserConfigurationException, IOException, SAXException {
+    public void update(Category oldCategory, Category newCategory) throws ParserConfigurationException, IOException, SAXException, TransformerException {
         Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new File("src/menu.xml"));
         NodeList nodeList = document.getElementsByTagName("nameCategory");
-        View view = new View();
-        for (int i = 0; i < nodeList.getLength(); i++) {
+         for (int i = 0; i < nodeList.getLength(); i++) {
             Node namedItem = nodeList.item(i).getAttributes().getNamedItem("name");
-            if (((namedItem.getNodeValue()).equalsIgnoreCase(category.getName()))) {
+            if (((namedItem.getNodeValue()).equalsIgnoreCase(oldCategory.getName()))) {
                 Node elementsByTagName = document.getElementsByTagName("nameCategory").item(i);
                 org.w3c.dom.NamedNodeMap map = elementsByTagName.getAttributes();
                 Node nodeAttr = map.getNamedItem("name");
-                //   view.newNameForCategory();
-                String newNameForCategory = new BufferedReader(new InputStreamReader(System.in)).readLine();
-                Category newCategory = new Category(newNameForCategory);
                 nodeAttr.setTextContent(firstUpperCase(newCategory.getName()));
-                NodeList list = document.getElementsByTagName(category.getName());
-                for (int j = 0; j < list.getLength(); ) {
+                NodeList list = document.getElementsByTagName(newCategory.getName());
+                for (int j = 0; j < list.getLength(); j++ ) {
                     document.renameNode(list.item(j), "", newCategory.getName().toLowerCase());
                 }
             }
         }
+        reformatXmlFile(document, "src/menu.xml");
     }
 
     @Override
@@ -89,6 +84,12 @@ public class XmlDaoCategoryImpl implements Dao<Category> {
         }
         return listOfCategory;
     }
+
+    @Override
+    public List<Category> getBy(Food entity) throws ParserConfigurationException, IOException, SAXException {
+        return null;
+    }
+
 
     static void reformatXmlFile(Document document, String nameOfDocument) throws TransformerException {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();

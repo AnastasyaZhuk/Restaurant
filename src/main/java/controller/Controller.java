@@ -1,6 +1,6 @@
 package controller;
 
-import model.Service;
+import model.services.Service;
 import org.xml.sax.SAXException;
 import view.View;
 
@@ -38,13 +38,19 @@ public class Controller {
             service.getAllDishes();
         } else if (request.equalsIgnoreCase("new category")) {
             service.createCategory();
-        } else if (request.equalsIgnoreCase("update category")) {
-            service.updateCategory();
-        } else if (request.equalsIgnoreCase("delete category")) {
-            service.removeCategory();
         } else if (request.equalsIgnoreCase("new food")) {
             service.createFood();
-        } else {
+        }else if (request.equalsIgnoreCase("update category")) {
+            service.updateCategory();
+        }else if(request.equalsIgnoreCase("update food")){
+            service.updateFood();
+        }
+        else if (request.equalsIgnoreCase("delete category")) {
+            service.removeCategory();
+        } else if(request.equalsIgnoreCase("delete food")){
+            service.deleteDishes();
+        }
+        else {
             view.showGhost();
         }
     }

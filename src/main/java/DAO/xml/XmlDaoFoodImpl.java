@@ -1,6 +1,6 @@
-package DAO.XmlDaoImpl;
+package dao.xml;
 
-import DAO.Dao;
+import dao.Dao;
 import model.Category;
 import model.Food;
 import org.w3c.dom.Document;
@@ -8,24 +8,21 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import view.View;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XmlDaoFoodImpl implements Dao<Food> {
+public class XmlDaoFoodImpl implements Dao<Food, Category> {
 
 
     @Override
     public void create(Food food) throws ParserConfigurationException, IOException, SAXException, TransformerException {
-        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new File( "src/menu.xml"));
+        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new File("src/menu.xml"));
         NodeList nodeList = document.getElementsByTagName("nameCategory");
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node namedItem = nodeList.item(i).getAttributes().getNamedItem("name");
@@ -43,7 +40,7 @@ public class XmlDaoFoodImpl implements Dao<Food> {
                 tagOfNameCategory.appendChild(priceOfFood);
             }
         }
-      XmlDaoCategoryImpl.reformatXmlFile(document, "src/menu.xml");
+        XmlDaoCategoryImpl.reformatXmlFile(document, "src/menu.xml");
     }
 
     @Override
@@ -63,31 +60,28 @@ public class XmlDaoFoodImpl implements Dao<Food> {
     }
 
     @Override
-    public void update(Food food) throws ParserConfigurationException, IOException, SAXException, TransformerException {
-        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new File( "src/menu.xml"));
+    public void update(Food oldFood, Food newFood) throws ParserConfigurationException, IOException, SAXException, TransformerException {
+        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new File("src/menu.xml"));
         NodeList list = document.getElementsByTagName("name");
-        //Запрос во View: ввести новое название блюда
-        String newNameForFood =  new BufferedReader(new InputStreamReader(System.in)).readLine();
-        Food newFood = new Food(newNameForFood,food.getCategory().getName(),food.getPrice());
         for (int i = 0; i < list.getLength(); i++) {
             Node node = list.item(i);
-            if (food.getName().equals(node.getTextContent())) {
+            if (oldFood.getName().equals(node.getTextContent())) {
                 node.setTextContent(newFood.getName());
             }
         }
         XmlDaoCategoryImpl.reformatXmlFile(document, "src/menu.xml");
+
     }
 
     @Override
     public List<Food> getAll() throws ParserConfigurationException, IOException, SAXException {
+        return null;
+    }
+
+    @Override
+    public List<Food> getBy(Category category) throws ParserConfigurationException, IOException, SAXException {
         Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new File("src/menu.xml"));
         Food food;
-        //Запрос во View: ввести название категории
-        View view = new View();
-        view.nameCategory();
-        String nameCategory =  new BufferedReader(new InputStreamReader(System.in)).readLine();
-        Category category = new Category(nameCategory);
-
         NodeList nodeList = document.getElementsByTagName(category.getName());
         List<Food> listOfFood = new ArrayList<Food>();
         for (int i = 0; i < nodeList.getLength(); i++) {
