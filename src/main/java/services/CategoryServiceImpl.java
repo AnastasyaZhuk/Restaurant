@@ -1,9 +1,7 @@
 package services;
 
-import dao.Dao;
 import dao.DaoFactory;
 import dao.xml.XmlDaoCategoryImpl;
-import dao.xml.XmlDaoFoodImpl;
 import model.Category;
 import org.xml.sax.SAXException;
 import view.View;
@@ -13,7 +11,7 @@ import javax.xml.transform.TransformerException;
 import java.io.IOException;
 import java.util.List;
 
-public class CategoryServiceImpl implements CategoryService, DaoFactory<XmlDaoCategoryImpl<Dao>, XmlDaoFoodImpl<Dao>> {
+public class CategoryServiceImpl implements CategoryService, DaoFactory<XmlDaoCategoryImpl> {
 
     private View view = new View();
 
@@ -23,19 +21,19 @@ public class CategoryServiceImpl implements CategoryService, DaoFactory<XmlDaoCa
         Category oldCategory = new Category(nameCategory);
         String newName = view.newNameForCategory();
         Category newCategory = new Category(newName);
-        getCategoryDao().update(oldCategory, newCategory);
+        getDaoXml().update(oldCategory, newCategory);
     }
 
     @Override
     public void removeCategory() throws IOException, TransformerException, SAXException, ParserConfigurationException {
         String nameCategory = view.nameCategory();
         Category category = new Category(nameCategory);
-        getCategoryDao().delete(category);
+        getDaoXml().delete(category);
     }
 
     @Override
     public void getAllCategories() throws IOException, SAXException, ParserConfigurationException {
-        List<Category> listOfCategories = getCategoryDao().getAll();
+        List<Category> listOfCategories = getDaoXml().getAll();
         view.showAllCategory(listOfCategories);
     }
 
@@ -43,19 +41,11 @@ public class CategoryServiceImpl implements CategoryService, DaoFactory<XmlDaoCa
     public void createCategory() throws IOException, TransformerException, SAXException, ParserConfigurationException {
         String nameCategory = view.nameCategory();
         Category category = new Category(nameCategory);
-        getCategoryDao().create(category);
-    }
-
-
-    @Override
-    public XmlDaoCategoryImpl<Dao> getCategoryDao() {
-        XmlDaoCategoryImpl<Dao> xmlDaoCategory = new XmlDaoCategoryImpl<Dao>();
-        return xmlDaoCategory;
+        getDaoXml().create(category);
     }
 
     @Override
-    public XmlDaoFoodImpl<Dao> getFoodDao() {
-        XmlDaoFoodImpl<Dao> xmlDaoFood = new XmlDaoFoodImpl<Dao>();
-        return xmlDaoFood;
+    public XmlDaoCategoryImpl getDaoXml() {
+        return new XmlDaoCategoryImpl();
     }
 }

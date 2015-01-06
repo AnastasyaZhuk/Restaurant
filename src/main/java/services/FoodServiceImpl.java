@@ -1,8 +1,6 @@
 package services;
 
-import dao.Dao;
 import dao.DaoFactory;
-import dao.xml.XmlDaoCategoryImpl;
 import dao.xml.XmlDaoFoodImpl;
 import model.Category;
 import model.Food;
@@ -14,7 +12,7 @@ import javax.xml.transform.TransformerException;
 import java.io.IOException;
 import java.util.List;
 
-public class FoodServiceImpl implements FoodService, DaoFactory<XmlDaoCategoryImpl<Dao>, XmlDaoFoodImpl<Dao>> {
+public class FoodServiceImpl implements FoodService, DaoFactory<XmlDaoFoodImpl> {
 
     private View view = new View();
 
@@ -26,7 +24,7 @@ public class FoodServiceImpl implements FoodService, DaoFactory<XmlDaoCategoryIm
         Food oldFood = new Food(nameFood, category.getName());
         String newNameOfFood = view.newNameForDish();
         Food newFood = new Food(newNameOfFood, category.getName());
-        getFoodDao().update(oldFood, newFood);
+        getDaoXml().update(oldFood, newFood);
     }
 
     @Override
@@ -35,14 +33,14 @@ public class FoodServiceImpl implements FoodService, DaoFactory<XmlDaoCategoryIm
         Category category = new Category(nameCategory);
         String nameFood = view.nameDishes();
         Food food = new Food(nameFood, category.getName());
-        getFoodDao().delete(food);
+        getDaoXml().delete(food);
     }
 
     @Override
     public void getAllDishes() throws IOException, SAXException, ParserConfigurationException {
         String nameCategory = view.nameCategory();
         Category category = new Category(nameCategory);
-        List<Food> listOfFood = getFoodDao().getBy(category);
+        List<Food> listOfFood =   getDaoXml().getBy(category);
         view.showAllDishes(listOfFood);
     }
 
@@ -53,18 +51,11 @@ public class FoodServiceImpl implements FoodService, DaoFactory<XmlDaoCategoryIm
         String nameFood = view.nameDishes();
         int price = view.priceOfDishes();
         Food food = new Food(nameFood, category.getName(), price);
-        getFoodDao().create(food);
+        getDaoXml().create(food);
     }
 
     @Override
-    public XmlDaoCategoryImpl<Dao> getCategoryDao() {
-        XmlDaoCategoryImpl<Dao> xmlDaoCategory = new XmlDaoCategoryImpl<Dao>();
-        return xmlDaoCategory;
-    }
-
-    @Override
-    public XmlDaoFoodImpl<Dao> getFoodDao() {
-        XmlDaoFoodImpl<Dao> xmlDaoFood = new XmlDaoFoodImpl<Dao>();
-        return xmlDaoFood;
+    public XmlDaoFoodImpl getDaoXml() {
+        return new XmlDaoFoodImpl();
     }
 }
