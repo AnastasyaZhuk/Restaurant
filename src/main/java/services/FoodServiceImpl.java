@@ -12,9 +12,10 @@ import javax.xml.transform.TransformerException;
 import java.io.IOException;
 import java.util.List;
 
-public class FoodServiceImpl implements FoodService, DaoFactory<XmlDaoFoodImpl> {
+public class FoodServiceImpl implements FoodService, DaoFactory {
 
     private View view = new View();
+    private XmlDaoFoodImpl xmlDaoFood;
 
     @Override
     public void updateFood() throws IOException, ParserConfigurationException, SAXException, TransformerException {
@@ -24,7 +25,8 @@ public class FoodServiceImpl implements FoodService, DaoFactory<XmlDaoFoodImpl> 
         Food oldFood = new Food(nameFood, category.getName());
         String newNameOfFood = view.newNameForDish();
         Food newFood = new Food(newNameOfFood, category.getName());
-        getDaoXml().update(oldFood, newFood);
+        getDaoXml();
+        xmlDaoFood.update(oldFood, newFood);
     }
 
     @Override
@@ -33,14 +35,16 @@ public class FoodServiceImpl implements FoodService, DaoFactory<XmlDaoFoodImpl> 
         Category category = new Category(nameCategory);
         String nameFood = view.nameDishes();
         Food food = new Food(nameFood, category.getName());
-        getDaoXml().delete(food);
+        getDaoXml();
+        xmlDaoFood.delete(food);
     }
 
     @Override
     public void getAllDishes() throws IOException, SAXException, ParserConfigurationException {
         String nameCategory = view.nameCategory();
         Category category = new Category(nameCategory);
-        List<Food> listOfFood =   getDaoXml().getBy(category);
+        getDaoXml();
+        List<Food> listOfFood = xmlDaoFood.getBy(category);
         view.showAllDishes(listOfFood);
     }
 
@@ -51,11 +55,12 @@ public class FoodServiceImpl implements FoodService, DaoFactory<XmlDaoFoodImpl> 
         String nameFood = view.nameDishes();
         int price = view.priceOfDishes();
         Food food = new Food(nameFood, category.getName(), price);
-        getDaoXml().create(food);
+        getDaoXml();
+        xmlDaoFood.create(food);
     }
 
     @Override
-    public XmlDaoFoodImpl getDaoXml() {
-        return new XmlDaoFoodImpl();
+    public void getDaoXml() {
+        this.xmlDaoFood = new XmlDaoFoodImpl();
     }
 }

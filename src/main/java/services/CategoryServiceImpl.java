@@ -11,9 +11,10 @@ import javax.xml.transform.TransformerException;
 import java.io.IOException;
 import java.util.List;
 
-public class CategoryServiceImpl implements CategoryService, DaoFactory<XmlDaoCategoryImpl> {
+public class CategoryServiceImpl implements CategoryService, DaoFactory {
 
     private View view = new View();
+    private XmlDaoCategoryImpl xmlDaoCategory;
 
     @Override
     public void updateCategory() throws IOException, ParserConfigurationException, SAXException, TransformerException {
@@ -21,19 +22,22 @@ public class CategoryServiceImpl implements CategoryService, DaoFactory<XmlDaoCa
         Category oldCategory = new Category(nameCategory);
         String newName = view.newNameForCategory();
         Category newCategory = new Category(newName);
-        getDaoXml().update(oldCategory, newCategory);
+        getDaoXml();
+        xmlDaoCategory.update(oldCategory, newCategory);
     }
 
     @Override
     public void removeCategory() throws IOException, TransformerException, SAXException, ParserConfigurationException {
         String nameCategory = view.nameCategory();
         Category category = new Category(nameCategory);
-        getDaoXml().delete(category);
+        getDaoXml();
+        xmlDaoCategory.delete(category);
     }
 
     @Override
     public void getAllCategories() throws IOException, SAXException, ParserConfigurationException {
-        List<Category> listOfCategories = getDaoXml().getAll();
+        getDaoXml();
+        List<Category> listOfCategories = xmlDaoCategory.getAll();
         view.showAllCategory(listOfCategories);
     }
 
@@ -41,11 +45,13 @@ public class CategoryServiceImpl implements CategoryService, DaoFactory<XmlDaoCa
     public void createCategory() throws IOException, TransformerException, SAXException, ParserConfigurationException {
         String nameCategory = view.nameCategory();
         Category category = new Category(nameCategory);
-        getDaoXml().create(category);
+        getDaoXml();
+        xmlDaoCategory.create(category);
     }
 
     @Override
-    public XmlDaoCategoryImpl getDaoXml() {
-        return new XmlDaoCategoryImpl();
+    public void getDaoXml() {
+        this.xmlDaoCategory = new XmlDaoCategoryImpl();
+
     }
 }

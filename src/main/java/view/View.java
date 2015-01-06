@@ -24,10 +24,11 @@ public class View {
         log.info("Добро пожаловать в ресторан!");
         log.info("Введите запрос:");
         String request = null;
-        try (BufferedReader bf = new BufferedReader(new InputStreamReader(System.in))) {
+        try {
+            BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
             request = bf.readLine();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.info(e.toString());
         }
         requestForController(request);
     }
@@ -38,10 +39,11 @@ public class View {
     public String nameCategory() {
         log.info("Введите название категории:");
         String nameCategory = null;
-        try (BufferedReader bf = new BufferedReader(new InputStreamReader(System.in))) {
+        try {
+            BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
             nameCategory = bf.readLine();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.info(e.toString());
         }
         return nameCategory;
     }
@@ -52,10 +54,11 @@ public class View {
     public String nameDishes() {
         log.info("Введите название блюда");
         String nameForDishes = null;
-        try (BufferedReader bf = new BufferedReader(new InputStreamReader(System.in))) {
+        try {
+            BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
             nameForDishes = bf.readLine();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.info(e.toString());
         }
         return nameForDishes;
     }
@@ -66,10 +69,11 @@ public class View {
     public int priceOfDishes() {
         log.info("Установите цену:");
         int price = 0;
-        try (BufferedReader bf = new BufferedReader(new InputStreamReader(System.in))) {
+        try {
+            BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
             price = Integer.parseInt(bf.readLine());
         } catch (IOException e) {
-            e.printStackTrace();
+            log.info(e.toString());
         }
         return price;
     }
@@ -80,10 +84,11 @@ public class View {
     public String newNameForCategory() {
         log.info("Введите новое название категории:");
         String newName = null;
-        try (BufferedReader bf = new BufferedReader(new InputStreamReader(System.in))) {
+        try {
+            BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
             newName = bf.readLine();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.info(e.toString());
         }
         return newName;
     }
@@ -93,12 +98,12 @@ public class View {
      */
     public String newNameForDish() {
         log.info("Введите новое название блюда");
-
         String newName = null;
-        try (BufferedReader bf = new BufferedReader(new InputStreamReader(System.in))) {
+        try {
+            BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
             newName = bf.readLine();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.info(e.toString());
         }
         return newName;
     }
@@ -131,12 +136,12 @@ public class View {
     /**
      * Processes the user's request
      */
-    public void requestForController(String request) throws  TransformerException, ParserConfigurationException, SAXException {
+    public void requestForController(String request) throws TransformerException, ParserConfigurationException, SAXException {
         controller = new Controller();
         try {
             controller.requestForService(request);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.info(e.toString());
         }
     }
 }
