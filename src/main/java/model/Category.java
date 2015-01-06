@@ -3,7 +3,7 @@ package model;
 public class Category implements Entity {
     private String name;
 
-    public Category(String name){
+    public Category(String name) {
         this.name = name;
     }
 
