@@ -3,6 +3,7 @@ package view;
 import controller.Controller;
 import model.Category;
 import model.Food;
+import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -11,7 +12,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class View {
     private static Logger log = Logger.getLogger(View.class.getName());
@@ -22,13 +22,17 @@ public class View {
      */
     public void display() throws TransformerException, ParserConfigurationException, SAXException {
         log.info("Добро пожаловать в ресторан!");
+        inputRequest();
+    }
+
+    public void inputRequest() throws TransformerException, ParserConfigurationException, SAXException {
         log.info("Введите запрос:");
         String request = null;
         try {
             BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
             request = bf.readLine();
         } catch (IOException e) {
-            log.info(e.toString());
+            log.error(e.toString());
         }
         requestForController(request);
     }
@@ -43,7 +47,7 @@ public class View {
             BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
             nameCategory = bf.readLine();
         } catch (IOException e) {
-            log.info(e.toString());
+            log.error(e.toString());
         }
         return nameCategory;
     }
@@ -58,7 +62,7 @@ public class View {
             BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
             nameForDishes = bf.readLine();
         } catch (IOException e) {
-            log.info(e.toString());
+            log.error(e.toString());
         }
         return nameForDishes;
     }
@@ -73,7 +77,7 @@ public class View {
             BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
             price = Integer.parseInt(bf.readLine());
         } catch (IOException e) {
-            log.info(e.toString());
+            log.error(e.toString());
         }
         return price;
     }
@@ -88,7 +92,7 @@ public class View {
             BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
             newName = bf.readLine();
         } catch (IOException e) {
-            log.info(e.toString());
+            log.error(e.toString());
         }
         return newName;
     }
@@ -103,7 +107,7 @@ public class View {
             BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
             newName = bf.readLine();
         } catch (IOException e) {
-            log.info(e.toString());
+            log.error(e.toString());
         }
         return newName;
     }
@@ -129,8 +133,13 @@ public class View {
     /**
      *
      */
-    public void showGhost() {
-        log.info("Такой запрос не поддерживается! Проверьте правильность запроса! ");
+    public void showGhost() throws TransformerException, ParserConfigurationException, SAXException {
+        log.error("Такой запрос не поддерживается! Проверьте правильность запроса! ");
+    }
+
+    public void nullRequest() throws TransformerException, ParserConfigurationException, SAXException {
+        log.error("Запрос не введен! Попробуйте ещё раз");
+        inputRequest();
     }
 
     /**
@@ -141,7 +150,7 @@ public class View {
         try {
             controller.requestForService(request);
         } catch (IOException e) {
-            log.info(e.toString());
+            log.error(e.toString());
         }
     }
 }
