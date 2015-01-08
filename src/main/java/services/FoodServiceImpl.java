@@ -1,5 +1,6 @@
 package services;
 
+import dao.Dao;
 import dao.DaoFactory;
 import dao.xml.XmlDaoFoodImpl;
 import model.Category;
@@ -60,7 +61,10 @@ public class FoodServiceImpl implements FoodService, DaoFactory {
     }
 
     @Override
-    public void getDaoXml() {
-        this.xmlDaoFood = new XmlDaoFoodImpl();
+    public Dao getDaoXml() {
+        if (xmlDaoFood == null) {
+            this.xmlDaoFood = new XmlDaoFoodImpl();
+        }
+        return xmlDaoFood;
     }
 }

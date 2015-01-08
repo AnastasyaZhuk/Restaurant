@@ -1,5 +1,5 @@
 package dao;
 
 public interface DaoFactory {
-    public void getDaoXml();
+    public Dao getDaoXml();
 }

@@ -1,5 +1,6 @@
 package services;
 
+import dao.Dao;
 import dao.DaoFactory;
 import dao.xml.XmlDaoCategoryImpl;
 import model.Category;
@@ -50,8 +51,10 @@ public class CategoryServiceImpl implements CategoryService, DaoFactory {
     }
 
     @Override
-    public void getDaoXml() {
-        this.xmlDaoCategory = new XmlDaoCategoryImpl();
-
+    public Dao getDaoXml() {
+        if(xmlDaoCategory == null) {
+            this.xmlDaoCategory = new XmlDaoCategoryImpl();
+        }
+        return xmlDaoCategory;
     }
 }
