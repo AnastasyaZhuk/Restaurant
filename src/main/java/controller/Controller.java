@@ -8,6 +8,8 @@ import view.View;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Controller {
@@ -15,30 +17,50 @@ public class Controller {
     private CategoryServiceImpl categoryService = new CategoryServiceImpl();
     private View view = new View();
 
+    public List<String> getListOfRequest() {
+        Request[] list = Request.values();
+        List<String> listOfRequest = new ArrayList<>();
+        for (int i = 0; i < list.length; i++) {
+            listOfRequest.add(String.valueOf(list[i]));
+        }
+        return listOfRequest;
+    }
+
     /**
      * Sends a request to perform Service
      */
     public void requestForService(String request) throws ParserConfigurationException, SAXException, IOException, TransformerException {
-        if (request.equals("")) {
-           view.nullRequest();
-        } else if ("show category".equalsIgnoreCase(request)) {
-            categoryService.getAllCategories();
-        } else if ("show dishes".equalsIgnoreCase(request)) {
-            foodService.getAllDishes();
-        } else if ("new category".equalsIgnoreCase(request)) {
-            categoryService.createCategory();
-        } else if ("new food".equalsIgnoreCase(request)) {
-            foodService.createFood();
-        } else if ("update category".equalsIgnoreCase(request)) {
-            categoryService.updateCategory();
-        } else if ("update food".equalsIgnoreCase(request)) {
-            foodService.updateFood();
-        } else if ("delete category".equalsIgnoreCase(request)) {
-            categoryService.removeCategory();
-        } else if ("delete food".equalsIgnoreCase(request)) {
-            foodService.removeFood();
-        } else {
-            view.showGhost();
+        Request request1 = Request.getRequest(request);
+        switch (request1) {
+            case NULL_REQUEST:
+                view.nullRequest();
+                break;
+            case SHOW_CATEGORY:
+                categoryService.getAllCategories();
+                break;
+            case SHOW_DISHES:
+                foodService.getAllDishes();
+                break;
+            case NEW_CATEGORY:
+                categoryService.createCategory();
+                break;
+            case NEW_FOOD:
+                foodService.createFood();
+                break;
+            case UPDATE_CATEGORY:
+                categoryService.updateCategory();
+                break;
+            case UPDATE_FOOD:
+                foodService.updateFood();
+                break;
+            case DELETE_CATEGORY:
+                categoryService.removeCategory();
+                break;
+            case DELETE_FOOD:
+                foodService.removeFood();
+                break;
+            default:
+                view.showGhost();
         }
     }
 

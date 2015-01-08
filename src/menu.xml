@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <restaurant>
-
     <nameCategory name="Snacks">
         <snacks>
             <name>Herring with potatoes</name>
@@ -14,5 +13,5 @@
     <nameCategory name="Salads"/>
     <nameCategory name="Desserts"/>
     <nameCategory name="Drinks"/>
-<nameCategory name="Sushi"/>
+    <nameCategory name="Sushi"/>
 </restaurant>

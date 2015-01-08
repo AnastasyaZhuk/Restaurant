@@ -25,7 +25,18 @@ public class View {
         inputRequest();
     }
 
+    public void displayListOfRequest() {
+        controller = new Controller();
+        List<String> list = controller.getListOfRequest();
+        String listOfRequest = "\n\r" + "Список всех команд:";
+        for (int i = 0; i < list.size(); i++) {
+            listOfRequest = listOfRequest + "\n\r" + list.get(i);
+        }
+        log.info(listOfRequest);
+    }
+
     public void inputRequest() throws TransformerException, ParserConfigurationException, SAXException {
+        displayListOfRequest();
         log.info("Введите запрос:");
         String request = null;
         try {

@@ -1,20 +1,35 @@
-//package controller;
-//
-///**
-// * Created by farioas on 06.01.2015.
-// */
-//public enum Request {
-//    REQUEST_1("show category"),
-//    REQUEST_2("show dishes"),
-//    REQUEST_3("new category"),
-//    REQUEST_4("new food"),
-//    REQUEST_5("update category"),
-//    REQUEST_6("update food"),
-//    REQUEST_7("delete category"),
-//    REQUEST_8("delete food");
-//
-//     Request(String s) {
-//    }
-//
-//
-//}
+package controller;
+
+public enum Request {
+    SHOW_CATEGORY("show category"), SHOW_DISHES("show dishes"), NEW_CATEGORY("new category"), NEW_FOOD("new food"),
+    UPDATE_CATEGORY("update category"), UPDATE_FOOD("update food"), DELETE_CATEGORY("delete category"),
+    DELETE_FOOD("delete food"), NULL_REQUEST("");
+    private String requestValue;
+
+    Request(String request) {
+        requestValue = request;
+    }
+
+    Request() {
+
+    }
+
+    public String getRequestValue() {
+        return requestValue;
+    }
+
+    @Override
+    public String toString() {
+        return requestValue;
+    }
+
+    static public Request getRequest(String vRequest) {
+        for (Request request : Request.values()) {
+            if (request.getRequestValue().equals(vRequest)) {
+                vRequest = request.getRequestValue();
+                return request;
+            }
+        }
+        throw new RuntimeException("unknown type");
+    }
+}
