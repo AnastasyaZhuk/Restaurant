@@ -1,4 +1,4 @@
-package dao.xml;
+package dao.xml.dom;
 
 import dao.Dao;
 import model.Category;
@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XmlDaoCategoryImpl<D> implements Dao<Category,Food> {
+public class XmlDaoCategoryImpl implements Dao<Category,Food> {
 
 
     @Override

@@ -2,7 +2,7 @@ package services;
 
 import dao.Dao;
 import dao.DaoFactory;
-import dao.xml.XmlDaoFoodImpl;
+import dao.xml.dom.XmlDaoFoodImpl;
 import model.Category;
 import model.Food;
 import org.xml.sax.SAXException;

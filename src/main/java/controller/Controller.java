@@ -3,6 +3,7 @@ package controller;
 import org.xml.sax.SAXException;
 import services.CategoryServiceImpl;
 import services.FoodServiceImpl;
+import services.TestServicesForSaxParser;
 import view.View;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -16,6 +17,8 @@ public class Controller {
     private FoodServiceImpl foodService = new FoodServiceImpl();
     private CategoryServiceImpl categoryService = new CategoryServiceImpl();
     private View view = new View();
+
+    private TestServicesForSaxParser testServicesForSaxParser = new TestServicesForSaxParser();
 
     public List<String> getListOfRequest() {
         Request[] list = Request.values();
@@ -36,7 +39,12 @@ public class Controller {
                 view.nullRequest();
                 break;
             case SHOW_CATEGORY:
-                categoryService.getAllCategories();
+                //  categoryService.getAllCategories();
+
+                /**
+                 * TEST FOR SAX PARSER
+                 */
+                testServicesForSaxParser.getAllCategories();
                 break;
             case SHOW_DISHES:
                 foodService.getAllDishes();

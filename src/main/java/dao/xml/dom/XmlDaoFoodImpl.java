@@ -1,6 +1,7 @@
-package dao.xml;
+package dao.xml.dom;
 
 import dao.Dao;
+import dao.xml.dom.XmlDaoCategoryImpl;
 import model.Category;
 import model.Food;
 import org.w3c.dom.Document;
