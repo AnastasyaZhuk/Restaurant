@@ -1,4 +1,4 @@
-package dao.xml.dom;
+package dao.xml;
 
 import dao.Dao;
 import model.Category;
