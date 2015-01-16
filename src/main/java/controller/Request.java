@@ -3,7 +3,7 @@ package controller;
 public enum Request {
     SHOW_CATEGORY("show category"), SHOW_DISHES("show dishes"), NEW_CATEGORY("new category"), NEW_FOOD("new food"),
     UPDATE_CATEGORY("update category"), UPDATE_FOOD("update food"), DELETE_CATEGORY("delete category"),
-    DELETE_FOOD("delete food"), NULL_REQUEST("");
+    DELETE_FOOD("delete food"), NULL_REQUEST(""),FULL_LIST("get all");
     private String requestValue;
 
     Request(String request) {

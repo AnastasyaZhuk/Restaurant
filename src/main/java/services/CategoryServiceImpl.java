@@ -2,7 +2,7 @@ package services;
 
 import dao.Dao;
 import dao.DaoFactory;
-import dao.sql.SqlDaoImpl;
+import dao.sql.SqlDaoCategoryImpl;
 import dao.xml.XmlDaoCategoryImpl;
 import model.Category;
 import org.xml.sax.SAXException;
@@ -17,7 +17,7 @@ public class CategoryServiceImpl implements CategoryService, DaoFactory {
 
     private View view = new View();
     private XmlDaoCategoryImpl xmlDaoCategory;
-    private SqlDaoImpl sqlDao;
+    private SqlDaoCategoryImpl sqlDao;
 
     @Override
     public void updateCategory() throws IOException, ParserConfigurationException, SAXException, TransformerException {
@@ -59,7 +59,7 @@ public class CategoryServiceImpl implements CategoryService, DaoFactory {
     @Override
     public Dao getDaoXml() {
         if(sqlDao == null) {
-            this.sqlDao = new SqlDaoImpl();
+            this.sqlDao = new SqlDaoCategoryImpl();
         }
         return sqlDao;
     }

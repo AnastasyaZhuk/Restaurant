@@ -14,4 +14,6 @@ public interface FoodService {
     public void getAllDishes() throws IOException, SAXException, ParserConfigurationException;
 
     public void createFood() throws TransformerException, SAXException, ParserConfigurationException, IOException;
+
+    public void getAllMenu();
 }

@@ -142,6 +142,15 @@ public class View {
     }
 
     /**
+     * Display All Menu
+     */
+    public void showAllMenu(List<Food> list) {
+        for (int i = 0; i < list.size(); i++) {
+            log.info(list.get(i).getCategory().getName() + " " + list.get(i).getName() + " - " + list.get(i).getPrice() + "rub");
+        }
+    }
+
+    /**
      *
      */
     public void showGhost() throws TransformerException, ParserConfigurationException, SAXException {

@@ -20,5 +20,4 @@ public interface Dao<E,T extends Entity> {
 
     public List<E> getBy(T entity) throws ParserConfigurationException, IOException, SAXException;
 
-
 }

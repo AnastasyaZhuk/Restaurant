@@ -2,6 +2,7 @@ package services;
 
 import dao.Dao;
 import dao.DaoFactory;
+import dao.sql.SqlDaoFoodImpl;
 import dao.xml.XmlDaoFoodImpl;
 import model.Category;
 import model.Food;
@@ -17,6 +18,7 @@ public class FoodServiceImpl implements FoodService, DaoFactory {
 
     private View view = new View();
     private XmlDaoFoodImpl xmlDaoFood;
+    private SqlDaoFoodImpl sqlDao;
 
     @Override
     public void updateFood() throws IOException, ParserConfigurationException, SAXException, TransformerException {
@@ -27,7 +29,8 @@ public class FoodServiceImpl implements FoodService, DaoFactory {
         String newNameOfFood = view.newNameForDish();
         Food newFood = new Food(newNameOfFood, category.getName());
         getDaoXml();
-        xmlDaoFood.update(oldFood, newFood);
+//        xmlDaoFood.update(oldFood, newFood);
+        sqlDao.update(oldFood, newFood);
     }
 
     @Override
@@ -37,7 +40,8 @@ public class FoodServiceImpl implements FoodService, DaoFactory {
         String nameFood = view.nameDishes();
         Food food = new Food(nameFood, category.getName());
         getDaoXml();
-        xmlDaoFood.delete(food);
+//        xmlDaoFood.delete(food);
+        sqlDao.delete(food);
     }
 
     @Override
@@ -45,7 +49,8 @@ public class FoodServiceImpl implements FoodService, DaoFactory {
         String nameCategory = view.nameCategory();
         Category category = new Category(nameCategory);
         getDaoXml();
-        List<Food> listOfFood = xmlDaoFood.getBy(category);
+        // List<Food> listOfFood = xmlDaoFood.getBy(category);
+        List<Food> listOfFood = sqlDao.getBy(category);
         view.showAllDishes(listOfFood);
     }
 
@@ -57,14 +62,26 @@ public class FoodServiceImpl implements FoodService, DaoFactory {
         int price = view.priceOfDishes();
         Food food = new Food(nameFood, category.getName(), price);
         getDaoXml();
-        xmlDaoFood.create(food);
+        // xmlDaoFood.create(food);
+        sqlDao.create(food);
+    }
+
+    @Override
+    public void getAllMenu() {
+        getDaoXml();
+        List<Food> fullList = sqlDao.getAll();
+        view.showAllMenu(fullList);
     }
 
     @Override
     public Dao getDaoXml() {
-        if (xmlDaoFood == null) {
-            this.xmlDaoFood = new XmlDaoFoodImpl();
+        if (sqlDao == null) {
+            this.sqlDao = new SqlDaoFoodImpl();
         }
-        return xmlDaoFood;
+        return sqlDao;
+//        if (xmlDaoFood == null) {
+//            this.xmlDaoFood = new XmlDaoFoodImpl();
+//        }
+//        return xmlDaoFood;
     }
 }

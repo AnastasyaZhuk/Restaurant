@@ -32,6 +32,9 @@ public class Controller {
     public void requestForService(String request) throws ParserConfigurationException, SAXException, IOException, TransformerException {
         Request request1 = Request.getRequest(request);
         switch (request1) {
+            case FULL_LIST:
+                foodService.getAllMenu();
+                break;
             case NULL_REQUEST:
                 view.nullRequest();
                 break;
