@@ -2,6 +2,7 @@ package services;
 
 import dao.Dao;
 import dao.DaoFactory;
+import dao.sql.SqlDaoImpl;
 import dao.xml.XmlDaoCategoryImpl;
 import model.Category;
 import org.xml.sax.SAXException;
@@ -16,6 +17,7 @@ public class CategoryServiceImpl implements CategoryService, DaoFactory {
 
     private View view = new View();
     private XmlDaoCategoryImpl xmlDaoCategory;
+    private SqlDaoImpl sqlDao;
 
     @Override
     public void updateCategory() throws IOException, ParserConfigurationException, SAXException, TransformerException {
@@ -24,7 +26,8 @@ public class CategoryServiceImpl implements CategoryService, DaoFactory {
         String newName = view.newNameForCategory();
         Category newCategory = new Category(newName);
         getDaoXml();
-        xmlDaoCategory.update(oldCategory, newCategory);
+       // xmlDaoCategory.update(oldCategory, newCategory);
+        sqlDao.update(oldCategory, newCategory);
     }
 
     @Override
@@ -32,13 +35,15 @@ public class CategoryServiceImpl implements CategoryService, DaoFactory {
         String nameCategory = view.nameCategory();
         Category category = new Category(nameCategory);
         getDaoXml();
-        xmlDaoCategory.delete(category);
+       // xmlDaoCategory.delete(category);
+        sqlDao.delete(category);
     }
 
     @Override
     public void getAllCategories() throws IOException, SAXException, ParserConfigurationException {
         getDaoXml();
-        List<Category> listOfCategories = xmlDaoCategory.getAll();
+      //  List<Category> listOfCategories = xmlDaoCategory.getAll();
+        List<Category> listOfCategories = sqlDao.getAll();
         view.showAllCategory(listOfCategories);
     }
 
@@ -47,14 +52,15 @@ public class CategoryServiceImpl implements CategoryService, DaoFactory {
         String nameCategory = view.nameCategory();
         Category category = new Category(nameCategory);
         getDaoXml();
-        xmlDaoCategory.create(category);
+       // xmlDaoCategory.create(category);
+        sqlDao.create(category);
     }
 
     @Override
     public Dao getDaoXml() {
-        if(xmlDaoCategory == null) {
-            this.xmlDaoCategory = new XmlDaoCategoryImpl();
+        if(sqlDao == null) {
+            this.sqlDao = new SqlDaoImpl();
         }
-        return xmlDaoCategory;
+        return sqlDao;
     }
 }
