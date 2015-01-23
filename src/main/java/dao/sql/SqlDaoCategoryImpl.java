@@ -16,7 +16,7 @@ import java.util.List;
 
 public class SqlDaoCategoryImpl implements Dao<Category, Food> {
 
-    private ConnectionForDatabase connectionForDatabase = new ConnectionForDatabase();
+    private DBConnectorPool connectionForDatabase = new DBConnectorPool();
     private PreparedStatement preparedStatement;
 
     private static final String GET_ALL = "SELECT * FROM category";

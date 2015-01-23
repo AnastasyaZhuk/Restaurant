@@ -1,7 +1,6 @@
 package dao.xml;
 
 import dao.Dao;
-import dao.xml.XmlDaoCategoryImpl;
 import model.Category;
 import model.Food;
 import org.w3c.dom.Document;
@@ -94,6 +93,4 @@ public class XmlDaoFoodImpl<D> implements Dao<Food, Category> {
         }
         return listOfFood;
     }
-
-
 }
